@@ -22,7 +22,9 @@ N/A
 ## Questions
 If you have any questions, don't hesitate to reach out:
 
-Github Profile:[Oscar Zavala](https://github.com/rocas3096)
+Github Profile: [Oscar Zavala](https://github.com/rocas3096) 
+
 Github username: rocas3096
+
 Email: ozavala3096@gmail.com
                     
