@@ -44,7 +44,7 @@ inquirer
         },
         {
             type: 'input',
-            message: 'Type out the description of your project',
+            message: 'Type out the description of your project:',
             name: 'description',
         },
         {
@@ -92,54 +92,51 @@ inquirer
         axios
             .get(queryUrl)
             .then((response) => {
-                if (err) throw err;
                 githubData = response.data;
-                console.log(githubData);
+                const licenseInfo = generateLicense(answers.license);
+                const [badge, notice] = licenseInfo;
+                const data =
+                    `${badge}
+                    # ${answers.title}
+                    
+                    ## Description
+                    ${answers.description}
+                    
+                    ## Table of Contents
+                    
+                    - [Installation](#installation)
+                    - [Usage](#usage)
+                    - [License](#license)
+                    - [Contributing](#contributing)
+                    - [Tests](#tests)
+                    - [Questions](#questions)
+                    
+                    ## Installation
+                    ${answers.installation}
+                    
+                    ## Usage
+                    ${answers.usageInfo}
+                    
+                    ## License
+                    ${notice}
+                    
+                    ## Contributing
+                    ${answers.contributions}
+                    
+                    ## Tests
+                    ${answers.testInfo}
+                    
+                    ## Questions
+                    If you have any questions, don't hesitate to reach out:
+                    
+                    Github Profile:[${githubData.name}](${githubData.html_url})
+                    Github username: ${answers.username}
+                    Email: ${answers.email}
+                    `;
+
+                fs.writeFile('README.md', data, (err) => {
+                    if (err) throw err;
+                    console.log('Success!')
+                });
             });
-        
-        const licenseInfo = generateLicense(answers.license);
-        const [badge, notice] = licenseInfo; 
-        const readmeContent = 
-        `${badge}
-        # ${answers.title}
-
-        ## Description
-        ${answers.description}
-
-        ## Table of Contents
-        
-        - [Installation](#installation)
-        - [Usage](#usage)
-        - [License](#license)
-        - [Contributing](#contributing)
-        - [Tests](#tests)
-        - [Questions](#questions)
-        
-        ## Installation
-        ${answers.installation}
-
-        ## Usage
-        ${answers.usageInfo}
-
-        ## License
-        ${notice}
-
-        ## Contributing
-        ${answers.contributions}
-
-        ## Tests
-        ${answers.testInfo}
-
-        ## Questions
-        If you have any questions, don't hesitate to reach out:
-
-        Github Profile:[${githubData.name}](${githubData.html_url})
-        Github username: ${answers.username}
-        Email: ${answers.email}
-        `;
-
-        fs.writeFile('README.md', readmeContent, (err) => {
-            if (err) throw err;
-            console.log('Success!')
-        });
     });
