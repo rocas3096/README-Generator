@@ -32,7 +32,7 @@ function generateLicense(license) {
             notice = '';
     }
 
-    return `## License\n\n${badge}\n\n${notice}`;
+    return { badge, notice };
 }
 
 inquirer
@@ -59,7 +59,7 @@ inquirer
         },
         {
             type: 'input',
-            message: 'Who contributed to this project?',
+            message: 'Who are the contribution guidelines and who contributed to this project?',
             name: 'contributions',
         },
         {
@@ -93,48 +93,47 @@ inquirer
             .get(queryUrl)
             .then((response) => {
                 githubData = response.data;
-                const licenseInfo = generateLicense(answers.license);
-                const [badge, notice] = licenseInfo;
+                const license = generateLicense(answers.license);
                 const data =
-                    `${badge}
-                    # ${answers.title}
-                    
-                    ## Description
-                    ${answers.description}
-                    
-                    ## Table of Contents
-                    
-                    - [Installation](#installation)
-                    - [Usage](#usage)
-                    - [License](#license)
-                    - [Contributing](#contributing)
-                    - [Tests](#tests)
-                    - [Questions](#questions)
-                    
-                    ## Installation
-                    ${answers.installation}
-                    
-                    ## Usage
-                    ${answers.usageInfo}
-                    
-                    ## License
-                    ${notice}
-                    
-                    ## Contributing
-                    ${answers.contributions}
-                    
-                    ## Tests
-                    ${answers.testInfo}
-                    
-                    ## Questions
-                    If you have any questions, don't hesitate to reach out:
-                    
-                    Github Profile:[${githubData.name}](${githubData.html_url})
-                    Github username: ${answers.username}
-                    Email: ${answers.email}
-                    `;
+                    `${license.badge}
+# ${answers.title}
+        
+## Description
+${answers.description}
 
-                fs.writeFile('README.md', data, (err) => {
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributions](#contributions)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation
+${answers.installation}
+
+## Usage
+${answers.usageInfo}
+
+## License
+${license.notice}
+
+## Contributions
+${answers.contributions}
+
+## Tests
+${answers.testInfo}
+
+## Questions
+If you have any questions, don't hesitate to reach out:
+
+Github Profile: [${githubData.name}](${githubData.html_url})
+
+Github username: ${answers.username}
+
+Email: ${answers.email}`
+
+                fs.writeFile('README-test.md', data, (err) => {
                     if (err) throw err;
                     console.log('Success!')
                 });
