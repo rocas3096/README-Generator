@@ -21,7 +21,8 @@ To find the website for this deployed project, use this link: https://rocas3096.
 
 To review the repository for this project use this link: https://github.com/rocas3096/ReadMe-Generator
 
-![Video of README generator being used to create README file](https://www.awesomescreenshot.com/video/17103900?key=573a927cabdafb7aacf985358904e277)
+[![IMAGE ALT TEXT HERE](https://drive.google.com/thumbnail?id=VIDEO_FILE_ID)](https://drive.google.com/file/d/VIDEO_FILE_ID/preview)
+
 
 ## License
 N/A
