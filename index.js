@@ -1,8 +1,9 @@
-
+// imports required modules/packages to excute code 
 const fs = require('fs')
 const inquirer = require('inquirer');
 const axios = require('axios');
 
+//function for generating licenses 
 function generateLicense(license) {
     let badge;
     let notice;
@@ -28,14 +29,15 @@ function generateLicense(license) {
             badge = '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)';
             notice = 'This project is licensed under the Mozilla Public License 2.0.';
             break;
-        default:
+        case 'None':
             badge = '';
-            notice = '';
+            notice = 'N/A';
     }
 
     return { badge, notice };
 }
 
+//prompts for user input
 inquirer
     .prompt([
         {
@@ -72,7 +74,7 @@ inquirer
             type: 'list',
             message: 'What type of license does your project use?',
             name: 'license',
-            choices: ['Apache License 2.0', 'GNU General Public License v3.0', 'ISC License', 'MIT License', 'Mozilla Public License 2.0'],
+            choices: ['Apache License 2.0', 'GNU General Public License v3.0', 'ISC License', 'MIT License', 'Mozilla Public License 2.0', 'None'],
         },
         {
             type: 'input',
@@ -87,14 +89,17 @@ inquirer
     ])
 
     .then((answers) => {
+        //creating url for api call using axios
         const queryUrl = `https://api.github.com/users/${answers.username}`
         let githubData;
 
+        //api call to github to retrieve user info
         axios
             .get(queryUrl)
             .then((response) => {
                 githubData = response.data;
                 const license = generateLicense(answers.license);
+                //create variable that contains README file template based on user input 
                 const data =
                     `${license.badge}
 # ${answers.title}
@@ -134,6 +139,7 @@ Github username: ${answers.username}
 
 Email: ${answers.email}`
 
+                //writing README file
                 fs.writeFile('README-test.md', data, (err) => {
                     if (err) throw err;
                     console.log('Success!')
