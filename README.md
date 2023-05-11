@@ -21,7 +21,7 @@ To review the repository for this project use this link: https://github.com/roca
 
 Demo Video:
 
-[![Demo of README Generator demonstrating functionality](https://drive.google.com/thumbnail?id=16v0gBTaF6K_v-RHHEelQap5Je8WbJI9c)](https://drive.google.com/file/d/16v0gBTaF6K_v-RHHEelQap5Je8WbJI9c/preview)
+[![Demo of README Generator demonstrating functionality](https://drive.google.com/thumbnail?id=1pK0wxBpWxbH6I842jSeLxLdIswzWnkBF)](https://drive.google.com/file/d/1pK0wxBpWxbH6I842jSeLxLdIswzWnkBF/preview)
 
 ## License
 N/A
